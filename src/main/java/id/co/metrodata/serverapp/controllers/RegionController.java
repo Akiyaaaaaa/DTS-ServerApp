@@ -3,6 +3,7 @@ package id.co.metrodata.serverapp.controllers;
 import id.co.metrodata.serverapp.models.Region;
 import id.co.metrodata.serverapp.services.RegionService;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,11 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/region")
 public class RegionController {
 
+  @Autowired
   private RegionService regionService;
-
-  public RegionController(RegionService regionService) {
-    this.regionService = regionService;
-  }
 
   @GetMapping
   public List<Region> getAll() {
