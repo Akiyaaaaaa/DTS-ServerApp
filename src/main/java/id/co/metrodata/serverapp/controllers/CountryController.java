@@ -1,6 +1,7 @@
 package id.co.metrodata.serverapp.controllers;
 
 import id.co.metrodata.serverapp.models.Country;
+import id.co.metrodata.serverapp.models.dto.request.CountryRequest;
 import id.co.metrodata.serverapp.services.CountryService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -30,9 +31,24 @@ public class CountryController {
     return countryService.getById(id);
   }
 
+  // Without DTO
   @PostMapping
   public Country create(@RequestBody Country country) {
     return countryService.create(country);
+  }
+
+  // With DTO
+  @PostMapping("/dto")
+  public Country createWithDTO(@RequestBody CountryRequest countryRequest) {
+    return countryService.createWithDTO(countryRequest);
+  }
+
+  // DTO with Model Mapper
+  @PostMapping("/dto-mm")
+  public Country createWithDTOModelMapper(
+    @RequestBody CountryRequest countryRequest
+  ) {
+    return countryService.createWithDTOModelMapper(countryRequest);
   }
 
   @PutMapping("/{id}")
