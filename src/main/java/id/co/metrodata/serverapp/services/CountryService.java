@@ -6,7 +6,6 @@ import id.co.metrodata.serverapp.models.dto.request.CountryRequest;
 import id.co.metrodata.serverapp.repositories.CountryRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @AllArgsConstructor
-// @NoArgsConstructor
 public class CountryService {
 
   private CountryRepository countryRepository;
