@@ -3,20 +3,16 @@ package id.co.metrodata.serverapp.services;
 import id.co.metrodata.serverapp.models.Country;
 import id.co.metrodata.serverapp.repositories.CountryRepository;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
+@AllArgsConstructor
 public class CountryService {
 
   private CountryRepository countryRepository;
-
-  @Autowired //depedency injection
-  public CountryService(CountryRepository countryRepository) {
-    this.countryRepository = countryRepository;
-  }
 
   public List<Country> getAll() {
     return countryRepository.findAll();

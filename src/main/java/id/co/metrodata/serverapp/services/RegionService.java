@@ -3,21 +3,16 @@ package id.co.metrodata.serverapp.services;
 import id.co.metrodata.serverapp.models.Region;
 import id.co.metrodata.serverapp.repositories.RegionRepository;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
+@AllArgsConstructor
 public class RegionService {
 
   private RegionRepository regionRepository;
-
-  @Autowired
-  public RegionService(RegionRepository regionRepository) {
-    this.regionRepository = regionRepository;
-  }
 
   public List<Region> getAll() {
     return regionRepository.findAll();
