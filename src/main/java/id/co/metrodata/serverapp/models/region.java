@@ -1,12 +1,21 @@
 package id.co.metrodata.serverapp.models;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "regions")
 public class region {
@@ -18,28 +27,32 @@ public class region {
   @Column(name = "region_name", nullable = false, length = 25)
   private String name;
 
-  public region() {
-  }
 
-  public region(Integer id, String name) {
-    this.id = id;
-    this.name = name;
-  }
+  @OneToMany(mappedBy = "region")
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  private List<country> country;
+  // public region() {
+  // }
 
-  public Integer getId() {
-    return id;
-  }
+  // public region(Integer id, String name) {
+  //   this.id = id;
+  //   this.name = name;
+  // }
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+  // public Integer getId() {
+  //   return id;
+  // }
 
-  public String getName() {
-    return name;
-  }
+  // public void setId(Integer id) {
+  //   this.id = id;
+  // }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+  // public String getName() {
+  //   return name;
+  // }
+
+  // public void setName(String name) {
+  //   this.name = name;
+  // }
 
 }

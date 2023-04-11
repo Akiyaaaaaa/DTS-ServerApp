@@ -11,16 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import id.co.metrodata.serverapp.models.country;
+import id.co.metrodata.serverapp.models.Dto.request.countryReq;
 import id.co.metrodata.serverapp.services.countryService;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/countries")
 public class countryControl {
   private countryService countryService;
-
-  public countryControl(id.co.metrodata.serverapp.services.countryService countryService) {
-    this.countryService = countryService;
-  }
 
   @GetMapping
   public List<country> getAll() {
@@ -34,11 +33,25 @@ public class countryControl {
 
   @PostMapping
   public country insert(@RequestBody country country) {
-    if (country.getRegion().getName().equals(country.getname())) {
-      throw new IllegalArgumentException("Region name and country name cannot be the same");
-    } else {
-      return countryService.insert(country);
-    }
+    return countryService.insert(country);
+    // if (country.getRegion().getName().equals(country.getname())) {
+    // throw new IllegalArgumentException("Region name and country name cannot be
+    // the same");
+    // } else {
+    // return countryService.insert(country);
+    // }
+  }
+
+  // with DTO
+  @PostMapping("/dto")
+  public country insertWithDTO(@RequestBody countryReq countryrReq) {
+    return countryService.insertWithDTO(countryrReq);
+  }
+
+  // DTO with Model Mapper
+  @PostMapping("/dto-mm")
+  public country insertWithDTOModelMapper(@RequestBody countryReq countryReq) {
+    return countryService.insertWithDTOModelMapper(countryReq);
   }
 
   @PutMapping("/{id}")
