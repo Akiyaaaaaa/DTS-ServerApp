@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.co.metrodata.serverapp.models.user;
-import id.co.metrodata.serverapp.models.Dto.request.userReq;
 import id.co.metrodata.serverapp.services.userService;
 import lombok.AllArgsConstructor;
 

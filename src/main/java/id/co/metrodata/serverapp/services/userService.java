@@ -23,7 +23,7 @@ public class userService {
   }
 
   public user insert(user user) {
-    if (userRepo.existsByName(user.getUserName())) {
+    if (userRepo.existsByName(user.getName())) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "Name already Exist!!");
     }
     return userRepo.save(user);
