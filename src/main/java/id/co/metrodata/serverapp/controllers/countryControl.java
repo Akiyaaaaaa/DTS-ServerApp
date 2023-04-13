@@ -34,12 +34,6 @@ public class countryControl {
   @PostMapping
   public country insert(@RequestBody country country) {
     return countryService.insert(country);
-    // if (country.getRegion().getName().equals(country.getname())) {
-    // throw new IllegalArgumentException("Region name and country name cannot be
-    // the same");
-    // } else {
-    // return countryService.insert(country);
-    // }
   }
 
   // with DTO

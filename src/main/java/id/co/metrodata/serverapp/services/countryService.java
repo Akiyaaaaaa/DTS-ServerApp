@@ -31,12 +31,18 @@ public class countryService {
 
   // without DTO
   public country insert(country country) {
+    if (!countryRepo.findByRegionName(country.getRegion().getName()).isEmpty()) {
+      throw new ResponseStatusException(HttpStatus.CONFLICT, "The same name is found in Region");
+    }
     return countryRepo.save(country);
   }
 
   // with DTO
   public country insertWithDTO(countryReq countryReq) {
     country country = new country();
+    if (countryRepo.findTopByRegionName(countryReq.getName()).isPresent()) {
+      throw new ResponseStatusException(HttpStatus.CONFLICT, "The same name is found in Region");
+    }
     country.setCode(countryReq.getCode());
     country.setName(countryReq.getName());
 
@@ -47,6 +53,9 @@ public class countryService {
 
   // DTO with Model Mapper
   public country insertWithDTOModelMapper(countryReq countryReq) {
+    if (!countryRepo.findByRegionName(countryReq.getName()).isEmpty()) {
+      throw new ResponseStatusException(HttpStatus.CONFLICT, "The same name is found in Region");
+    }
     country country = modelMapper.map(countryReq, country.class);
     country.setRegion(regionService.getById(countryReq.getRegionId()));
     return countryRepo.save(country);

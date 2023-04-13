@@ -6,14 +6,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import id.co.metrodata.serverapp.models.region;
 import id.co.metrodata.serverapp.repositories.regionRepo;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class regionService {
   private regionRepo regionRepo;
-
-  public regionService(regionRepo regionRepo) {
-    this.regionRepo = regionRepo;
-  }
 
   public List<region> getAll() {
     return regionRepo.findAll();
@@ -25,6 +23,9 @@ public class regionService {
   }
 
   public region insert(region region) {
+    if (regionRepo.existsByName(region.getName())) {
+      throw new ResponseStatusException(HttpStatus.CONFLICT, "Region name already exist!");
+    }
     return regionRepo.save(region);
   }
 
@@ -38,5 +39,15 @@ public class regionService {
     region region = getById(id);
     regionRepo.delete(region);
     return region;
+  }
+
+  // JPQL
+  public List<region> searchByName(String name) {
+    return regionRepo.searchByName(name);
+  }
+
+  // Native
+  public List<region> searchByNameNative(String name) {
+    return regionRepo.searchByNameNative(name);
   }
 }

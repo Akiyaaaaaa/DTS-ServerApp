@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import id.co.metrodata.serverapp.models.region;
 import id.co.metrodata.serverapp.services.regionService;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/region")
 public class regionControl {
-  private regionService regionService;
 
-  public regionControl(id.co.metrodata.serverapp.services.regionService regionService) {
-    this.regionService = regionService;
-  }
+  private regionService regionService;
 
   @GetMapping
   public List<region> getAll() {
@@ -45,5 +45,18 @@ public class regionControl {
   @DeleteMapping("/{id}")
   public region delete(@PathVariable Integer id) {
     return regionService.delete(id);
+  }
+
+  // JPQL
+  @GetMapping("/jpql/{name}")
+  public List<region> searchByName(@PathVariable String name) {
+    return regionService.searchByName(name);
+  }
+
+  // Native
+  @GetMapping("/native")
+  public List<region> searchByNameNative(
+      @RequestParam(name = "name") String name) {
+    return regionService.searchByNameNative(name);
   }
 }
