@@ -1,5 +1,7 @@
 package id.co.metrodata.serverapp.controllers;
 
+import javax.mail.MessagingException;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +30,9 @@ public class emailController {
 
   @PostMapping("/attach")
   public emailReq sendSimpleEmailWithAttachment(
-      @RequestBody emailReq emailReq) {
-    return emailService.sendSimpleEmailWithAttachment(emailReq);
+      @RequestBody emailReq emailReq) throws MessagingException {
+    // return emailService.sendSimpleEmailWithAttachment(emailReq);
+    return emailService.sendSimpleMessageWithHtml(emailReq);
   }
 
   @PostMapping("/attach-multi")
