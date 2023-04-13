@@ -38,9 +38,9 @@ public class emailController {
     return emailService.sendSimpleEmailWithAttachmenMultipleRecipients(emailReq);
   }
 
-  @PostMapping("/html")
-  public emailReq sendTemplate(
-      @RequestBody emailReq emailReq) {
-    return emailService.sendTemplate(emailReq);
-  }
+  // @PostMapping("/html")
+  // public emailReq sendTemplate(
+  // @RequestBody emailReq emailReq) {
+  // return emailService.sendTemplate(emailReq);
+  // }
 }

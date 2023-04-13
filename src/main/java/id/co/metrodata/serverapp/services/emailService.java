@@ -1,6 +1,9 @@
 package id.co.metrodata.serverapp.services;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.springframework.core.io.FileSystemResource;
@@ -8,8 +11,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import id.co.metrodata.serverapp.models.Dto.request.emailReq;
 import lombok.AllArgsConstructor;
@@ -19,8 +22,7 @@ import lombok.AllArgsConstructor;
 public class emailService {
 
   private JavaMailSender javaMailSender;
-  private TemplateEngine templateEngine;
-  // private FreeMarkerConfigurationFactoryBean freeMarkerConfig;
+  private SpringTemplateEngine springTemplateEngine;
 
   // Simple Mail Message (SMTP)
   public emailReq sendSimpleEmail(emailReq emailReq) {
@@ -96,16 +98,28 @@ public class emailService {
 
   public emailReq sendTemplate(emailReq emailReq) {
     try {
-      Context context = new Context();
-      context.setVariable("emailReq", emailReq);
+      MimeMessage email = javaMailSender.createMimeMessage();
+      MimeMessageHelper help = new MimeMessageHelper(email, true);
+      emailReq.setTemplate("hello.html");
 
-      String html = templateEngine.process("template/hello", context);
-      javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-      MimeMessageHelper help = new MimeMessageHelper(mimeMessage);
+      Map<String, Object> properties = new HashMap<>();
+      properties.put("name", emailReq.getTo());
+      emailReq.setProperties(properties);
+
+      Context context = new Context();
+      context.setVariables(emailReq.getProperties());
+
       help.setTo(emailReq.getTo());
       help.setSubject(emailReq.getSubject());
+      help.setText(emailReq.getBody());
+
+      String html = springTemplateEngine.process(emailReq.getTemplate(), context);
       help.setText(html, true);
-      javaMailSender.send(mimeMessage);
+      FileSystemResource file = new FileSystemResource(new File(emailReq.getAttach()));
+
+      help.addAttachment(file.getFilename(), file);
+
+      javaMailSender.send(email);
       System.out.println();
       System.out.println("Email success to send...");
       System.out.println();
