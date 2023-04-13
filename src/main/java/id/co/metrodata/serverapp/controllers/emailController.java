@@ -31,7 +31,6 @@ public class emailController {
   @PostMapping("/attach")
   public emailReq sendSimpleEmailWithAttachment(
       @RequestBody emailReq emailReq) throws MessagingException {
-    // return emailService.sendSimpleEmailWithAttachment(emailReq);
     return emailService.sendSimpleMessageWithHtml(emailReq);
   }
 
@@ -40,10 +39,4 @@ public class emailController {
       @RequestBody emailReq emailReq) {
     return emailService.sendSimpleEmailWithAttachmenMultipleRecipients(emailReq);
   }
-
-  // @PostMapping("/html")
-  // public emailReq sendTemplate(
-  // @RequestBody emailReq emailReq) {
-  // return emailService.sendTemplate(emailReq);
-  // }
 }

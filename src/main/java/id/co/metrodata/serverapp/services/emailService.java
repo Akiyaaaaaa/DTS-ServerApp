@@ -55,44 +55,6 @@ public class emailService {
     return emailReq;
   }
 
-  // Simple Message With Attachment (MIME)
-  // public emailReq sendSimpleEmailWithAttachment(emailReq emailReq) {
-  // try {
-  // MimeMessage email = javaMailSender.createMimeMessage();
-  // MimeMessageHelper help = new MimeMessageHelper(email, true);
-
-  // emailReq.setTemplate("hello.html");
-
-  // Map<String, Object> properties = new HashMap<>();
-  // properties.put("name", emailReq.getTo());
-  // emailReq.setProperties(properties);
-
-  // Context context = new Context();
-  // context.setVariables(emailReq.getProperties());
-
-  // help.setTo(emailReq.getTo());
-  // help.setSubject(emailReq.getSubject());
-  // help.setText(emailReq.getBody());
-
-  // final String html = springTemplateEngine.process(emailReq.getTemplate(),
-  // context);
-  // help.setText(html, true);
-  // FileSystemResource file = new FileSystemResource(new
-  // File(emailReq.getAttach()));
-  // help.addAttachment(file.getFilename(), file);
-
-  // javaMailSender.send(email);
-
-  // System.out.println();
-  // System.out.println("Email success to send...");
-  // System.out.println();
-  // } catch (Exception e) {
-  // // TODO Auto-generated catch block
-  // throw new IllegalStateException("Email failed to send!");
-  // }
-  // return emailReq;
-  // }
-
   // MIME Message with mMultiple Recipients
   public emailReq sendSimpleEmailWithAttachmenMultipleRecipients(emailReq emailReq) {
     try {
@@ -114,6 +76,7 @@ public class emailService {
     return emailReq;
   }
 
+  // Simple Message With Attachment (MIME)
   public emailReq sendSimpleMessageWithHtml(emailReq emailReq) throws MessagingException {
     final Context contex = new Context();
     Map<String, Object> detail = new HashMap<>();
@@ -132,37 +95,4 @@ public class emailService {
 
     return emailReq;
   }
-  // public emailReq sendTemplate(emailReq emailReq) {
-  // try {
-  // MimeMessage email = javaMailSender.createMimeMessage();
-  // MimeMessageHelper help = new MimeMessageHelper(email, true);
-  // emailReq.setTemplate("hello.html");
-
-  // Map<String, Object> properties = new HashMap<>();
-  // properties.put("name", emailReq.getTo());
-  // emailReq.setProperties(properties);
-
-  // Context context = new Context();
-  // context.setVariables(emailReq.getProperties());
-
-  // help.setTo(emailReq.getTo());
-  // help.setSubject(emailReq.getSubject());
-  // help.setText(emailReq.getBody());
-
-  // String html = springTemplateEngine.process(emailReq.getTemplate(), context);
-  // help.setText(html, true);
-  // FileSystemResource file = new FileSystemResource(new
-  // File(emailReq.getAttach()));
-
-  // help.addAttachment(file.getFilename(), file);
-
-  // javaMailSender.send(email);
-  // System.out.println();
-  // System.out.println("Email success to send...");
-  // System.out.println();
-  // } catch (Exception e) {
-  // throw new IllegalStateException("Email failed to send!");
-  // }
-  // return emailReq;
-  // }
 }
