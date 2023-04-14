@@ -27,32 +27,7 @@ public class region {
   @Column(name = "region_name", nullable = false, length = 25)
   private String name;
 
-
   @OneToMany(mappedBy = "region")
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private List<country> country;
-  // public region() {
-  // }
-
-  // public region(Integer id, String name) {
-  //   this.id = id;
-  //   this.name = name;
-  // }
-
-  // public Integer getId() {
-  //   return id;
-  // }
-
-  // public void setId(Integer id) {
-  //   this.id = id;
-  // }
-
-  // public String getName() {
-  //   return name;
-  // }
-
-  // public void setName(String name) {
-  //   this.name = name;
-  // }
-
 }

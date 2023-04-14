@@ -1,6 +1,7 @@
 package id.co.metrodata.serverapp.services;
 
 import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -24,7 +25,7 @@ public class userService {
 
   public user insert(user user) {
     if (userRepo.existsByName(user.getName())) {
-      throw new ResponseStatusException(HttpStatus.CONFLICT, "Name already Exist!!");
+      throw new ResponseStatusException(HttpStatus.CONFLICT, "User already Exist!!");
     }
     return userRepo.save(user);
   }

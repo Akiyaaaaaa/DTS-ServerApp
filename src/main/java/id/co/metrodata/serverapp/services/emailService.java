@@ -14,7 +14,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import id.co.metrodata.serverapp.models.Dto.request.emailReq;
 import lombok.AllArgsConstructor;
@@ -24,7 +23,6 @@ import lombok.AllArgsConstructor;
 public class emailService {
 
   private JavaMailSender javaMailSender;
-  private SpringTemplateEngine springTemplateEngine;
   private TemplateEngine templateEngine;
 
   // Simple Mail Message (SMTP)

@@ -34,40 +34,4 @@ public class country {
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "region_id", nullable = false)
   private region region;
-
-  // public country(Integer id, String name,
-  // id.co.metrodata.serverapp.models.region region) {
-  // this.id = id;
-  // this.name = name;
-  // this.region = region;
-  // }
-
-  // public country() {
-
-  // }
-
-  // public Integer getid() {
-  // return id;
-  // }
-
-  // public void setid(Integer id) {
-  // this.id = id;
-  // }
-
-  // public String getname() {
-  // return name;
-  // }
-
-  // public void setname(String name) {
-  // this.name = name;
-  // }
-
-  // public region getRegion() {
-  // return region;
-  // }
-
-  // public void setRegion(region region) {
-  // this.region = region;
-  // }
-
 }

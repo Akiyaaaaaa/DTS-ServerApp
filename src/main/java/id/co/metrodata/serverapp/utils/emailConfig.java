@@ -10,8 +10,6 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
-
 @Configuration
 public class emailConfig {
 

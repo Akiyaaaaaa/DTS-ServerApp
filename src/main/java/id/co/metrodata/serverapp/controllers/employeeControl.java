@@ -44,18 +44,4 @@ public class employeeControl {
   public employee delete(@PathVariable Integer id) {
     return employeeService.delete(id);
   }
-
-  // // JPQL
-  // @GetMapping("/jpql/{name}")
-  // public List<region> searchByName(@PathVariable String name) {
-  // return regionService.searchByName(name);
-  // }
-
-  // // Native
-  // @GetMapping("/native")
-  // public List<region> searchByNameNative(
-  // @RequestParam(name = "name") String name) {
-  // return regionService.searchByNameNative(name);
-  // }
-
 }
