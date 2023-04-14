@@ -1,5 +1,6 @@
 package id.co.metrodata.serverapp.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Employee {
   @Column(length = 13)
   private String phone;
 
-  @OneToOne(mappedBy = "employee")
+  @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
   @PrimaryKeyJoinColumn
   private User user;
 }

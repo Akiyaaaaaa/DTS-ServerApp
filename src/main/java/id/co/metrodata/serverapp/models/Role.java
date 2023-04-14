@@ -1,5 +1,6 @@
 package id.co.metrodata.serverapp.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,5 +28,6 @@ public class Role {
   private String name;
 
   @ManyToMany(mappedBy = "roles")
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private List<User> users;
 }
