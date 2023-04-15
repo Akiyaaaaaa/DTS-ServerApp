@@ -1,5 +1,6 @@
 package id.co.metrodata.serverapp.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "employees")
+@Table(name = "employee_tb")
 public class employee {
 
   @Id
@@ -32,7 +33,7 @@ public class employee {
   @Column(length = 13)
   private String phone;
 
-  @OneToOne(mappedBy = "employee")
+  @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
   @PrimaryKeyJoinColumn
   private user user;
 }

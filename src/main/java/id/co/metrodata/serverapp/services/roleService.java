@@ -25,9 +25,6 @@ public class roleService {
   }
 
   public role insert(role role) {
-    if (roleRepo.existsByName(role.getName())) {
-      throw new ResponseStatusException(HttpStatus.CONFLICT, "Name already Exist!!");
-    }
     return roleRepo.save(role);
   }
 

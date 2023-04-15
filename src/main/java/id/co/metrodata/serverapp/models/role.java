@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "roles")
+@Table(name = "role_tb")
 public class role {
 
   @Id
@@ -27,5 +30,6 @@ public class role {
   private String name;
 
   @ManyToMany(mappedBy = "roles")
-  private List<user> user;
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  private List<user> users;
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 public class userReq {
   private String username;
   private String password;
-  private String employee;
-  private Integer roleId;
+  private String name;
+  private String email;
+  private String phone;
 }

@@ -2,14 +2,18 @@ package id.co.metrodata.serverapp.controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import id.co.metrodata.serverapp.models.role;
 import id.co.metrodata.serverapp.models.user;
+import id.co.metrodata.serverapp.models.Dto.request.userReq;
 import id.co.metrodata.serverapp.services.userService;
 import lombok.AllArgsConstructor;
 
@@ -31,20 +35,22 @@ public class userControl {
   }
 
   @PostMapping
-  public user insert(@RequestBody user user) {
-    return userService.insert(user);
+  public user insert(@RequestBody userReq userReq) {
+    return userService.insert(userReq);
   }
 
-  // // JPQL
-  // @GetMapping("/jpql/{name}")
-  // public List<region> searchByName(@PathVariable String name) {
-  // return regionService.searchByName(name);
-  // }
+  @PutMapping("/{id}")
+  public user update(@PathVariable Integer id, @RequestBody user user) {
+    return userService.update(id, user);
+  }
 
-  // // Native
-  // @GetMapping("/native")
-  // public List<region> searchByNameNative(
-  // @RequestParam(name = "name") String name) {
-  // return regionService.searchByNameNative(name);
-  // }
+  @DeleteMapping("/{id}")
+  public user delete(@PathVariable Integer id) {
+    return userService.delete(id);
+  }
+
+  @PostMapping("/{id}")
+  public user addRole(@PathVariable Integer id, @RequestBody role role) {
+    return userService.addRole(id, role);
+  }
 }

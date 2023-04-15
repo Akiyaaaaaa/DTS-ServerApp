@@ -2,20 +2,17 @@ package id.co.metrodata.serverapp.services;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import id.co.metrodata.serverapp.models.employee;
-import id.co.metrodata.serverapp.models.Dto.request.employeeReq;
 import id.co.metrodata.serverapp.repositories.employeeRepo;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class employeeService {
-  private ModelMapper modelMapper;
   private employeeRepo employeeRepo;
 
   public List<employee> getAll() {
@@ -28,9 +25,6 @@ public class employeeService {
   }
 
   public employee insert(employee employee) {
-    if (employeeRepo.existsByName(employee.getName())) {
-      throw new ResponseStatusException(HttpStatus.CONFLICT, "Employee has registered");
-    }
     return employeeRepo.save(employee);
   }
 

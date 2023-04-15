@@ -1,12 +1,17 @@
 package id.co.metrodata.serverapp.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import id.co.metrodata.serverapp.models.employee;
+import id.co.metrodata.serverapp.models.role;
 import id.co.metrodata.serverapp.models.user;
+import id.co.metrodata.serverapp.models.Dto.request.userReq;
 import id.co.metrodata.serverapp.repositories.userRepo;
 import lombok.AllArgsConstructor;
 
@@ -14,6 +19,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class userService {
   private userRepo userRepo;
+  private ModelMapper modelMapper;
+  private roleService roleService;
 
   public List<user> getAll() {
     return userRepo.findAll();
@@ -23,10 +30,18 @@ public class userService {
     return userRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "NOT FOUND!!!"));
   }
 
-  public user insert(user user) {
-    if (userRepo.existsByName(user.getName())) {
-      throw new ResponseStatusException(HttpStatus.CONFLICT, "User already Exist!!");
-    }
+  public user insert(userReq userReq) {
+    user user = modelMapper.map(userReq, user.class);
+    employee employee = modelMapper.map(userReq, employee.class);
+
+    employee.setUser(user);
+    user.setEmployee(employee);
+
+    // set default role
+    List<role> roles = new ArrayList<>();
+    roles.add(roleService.getById(1));
+    user.setRoles(roles);
+
     return userRepo.save(user);
   }
 
@@ -42,4 +57,11 @@ public class userService {
     return user;
   }
 
+  public user addRole(Integer id, role role) {
+    user user = getById(id);
+    List<role> roles = user.getRoles();
+    roles.add(roleService.getById(role.getId()));
+    user.setRoles(roles);
+    return userRepo.save(user);
+  }
 }

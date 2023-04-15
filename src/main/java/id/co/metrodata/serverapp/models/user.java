@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -11,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,14 +23,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "user_tb")
 public class user {
 
   @Id
   private Integer id;
 
   @Column(unique = true, nullable = false)
-  private String name;
+  private String username;
 
   @Column(nullable = false)
   private String password;
@@ -38,9 +41,10 @@ public class user {
   @OneToOne
   @MapsId
   @JoinColumn(name = "id")
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private employee employee;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name = "roles_id"))
   private List<role> roles;
 }
