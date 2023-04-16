@@ -1,5 +1,6 @@
 package id.co.metrodata.serverapp.utils;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +23,11 @@ public class myUserDetail implements UserDetails {
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     List<String> roles = this.user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList());
-    return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    List<GrantedAuthority> authorities = new ArrayList<>();
+    for (String role : roles) {
+      authorities.add(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
+    }
+    return authorities;
   }
 
   @Override

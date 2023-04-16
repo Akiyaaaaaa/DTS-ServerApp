@@ -56,20 +56,17 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-        .anyRequest().authenticated()
+        .antMatchers("/employe/**").hasRole("EMPLOYEE")
+        .antMatchers("/country/**").hasRole("EMPLOYEE")
+        .antMatchers("/**").hasRole("MANAGER")
+        .anyRequest().permitAll()
         .and()
-        .formLogin().permitAll()
-        .and()
-        .logout().permitAll();
+        .httpBasic();
+    // .anyRequest().authenticated()
+    // .and()
+    // .formLogin().permitAll()
+    // .and()
+    // .logout().permitAll();
   }
-  // http.authorizeRequests()
-  // .antMatchers("/region/**")
-  // .hasRole("USER")
-  // .antMatchers("/country/**")
-  // .hasRole("ADMIN")
-  // .anyRequest()
-  // .permitAll()
-  // .and()
-  // .httpBasic();
 
 }
