@@ -1,16 +1,12 @@
-package id.co.metrodata.serverapp.utils;
+package id.co.metrodata.serverapp.models;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import id.co.metrodata.serverapp.models.role;
-import id.co.metrodata.serverapp.models.user;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -22,12 +18,9 @@ public class myUserDetail implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    List<String> roles = this.user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList());
-    List<GrantedAuthority> authorities = new ArrayList<>();
-    for (String role : roles) {
-      authorities.add(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
-    }
-    return authorities;
+    return user.getRoles().stream().map(
+        role -> new SimpleGrantedAuthority("ROLE_" + role.getName().toUpperCase()))
+        .collect(Collectors.toList());
   }
 
   @Override
@@ -59,5 +52,4 @@ public class myUserDetail implements UserDetails {
   public boolean isEnabled() {
     return user.getIsEnabled();
   }
-
 }

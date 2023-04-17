@@ -1,26 +1,25 @@
 package id.co.metrodata.serverapp.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+import id.co.metrodata.serverapp.models.myUserDetail;
 import id.co.metrodata.serverapp.models.user;
-import id.co.metrodata.serverapp.models.Dto.request.userReq;
 import id.co.metrodata.serverapp.repositories.userRepo;
-import id.co.metrodata.serverapp.utils.myUserDetail;
+import lombok.AllArgsConstructor;
 
-public class authUser implements UserDetailsService {
+@Service
+@AllArgsConstructor
+public class userDetailService implements UserDetailsService {
 
-  @Autowired
   private userRepo userRepo;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    user user = userRepo.getUserByUserName(username);
-    if (user == null) {
-      throw new UsernameNotFoundException("Could'nt find user");
-    }
+    user user = userRepo.findByUsernameOrEmployeeEmail(username, username)
+        .orElseThrow(() -> new UsernameNotFoundException("Username or Email not valid!!!"));
     return new myUserDetail(user);
   }
 

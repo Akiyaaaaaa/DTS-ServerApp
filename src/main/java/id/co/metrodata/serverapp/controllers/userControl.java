@@ -34,10 +34,10 @@ public class userControl {
     return userService.getById(id);
   }
 
-  @PostMapping
-  public user insert(@RequestBody userReq userReq) {
-    return userService.insert(userReq);
-  }
+  // @PostMapping
+  // public user insert(@RequestBody userReq userReq) {
+  // return userService.insert(userReq);
+  // }
 
   @PutMapping("/{id}")
   public user update(@PathVariable Integer id, @RequestBody user user) {

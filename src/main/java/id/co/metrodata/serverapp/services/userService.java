@@ -30,20 +30,20 @@ public class userService {
     return userRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "NOT FOUND!!!"));
   }
 
-  public user insert(userReq userReq) {
-    user user = modelMapper.map(userReq, user.class);
-    employee employee = modelMapper.map(userReq, employee.class);
+  // public user insert(userReq userReq) {
+  // user user = modelMapper.map(userReq, user.class);
+  // employee employee = modelMapper.map(userReq, employee.class);
 
-    employee.setUser(user);
-    user.setEmployee(employee);
+  // employee.setUser(user);
+  // user.setEmployee(employee);
 
-    // set default role
-    List<role> roles = new ArrayList<>();
-    roles.add(roleService.getById(1));
-    user.setRoles(roles);
+  // // set default role
+  // List<role> roles = new ArrayList<>();
+  // roles.add(roleService.getById(1));
+  // user.setRoles(roles);
 
-    return userRepo.save(user);
-  }
+  // return userRepo.save(user);
+  // }
 
   public user update(Integer id, user user) {
     getById(id);
