@@ -2,7 +2,6 @@ package id.co.metrodata.serverapp.controllers;
 
 import id.co.metrodata.serverapp.models.Role;
 import id.co.metrodata.serverapp.models.User;
-import id.co.metrodata.serverapp.models.dto.request.UserRequest;
 import id.co.metrodata.serverapp.services.UserService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -32,10 +31,10 @@ public class UserController {
     return userService.getById(id);
   }
 
-  @PostMapping
-  public User create(@RequestBody UserRequest userRequest) {
-    return userService.create(userRequest);
-  }
+  // @PostMapping
+  // public User create(@RequestBody UserRequest userRequest) {
+  //   return userService.create(userRequest);
+  // }
 
   @PutMapping("/{id}")
   public User update(@PathVariable Integer id, @RequestBody User user) {
