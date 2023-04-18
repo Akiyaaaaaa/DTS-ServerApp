@@ -1,7 +1,9 @@
 package id.co.metrodata.serverapp.controllers;
 
 import id.co.metrodata.serverapp.models.User;
+import id.co.metrodata.serverapp.models.dto.request.LoginRequest;
 import id.co.metrodata.serverapp.models.dto.request.UserRequest;
+import id.co.metrodata.serverapp.models.dto.response.LoginResponse;
 import id.co.metrodata.serverapp.services.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,5 +21,10 @@ public class AuthController {
   @PostMapping("/register")
   public User register(@RequestBody UserRequest userRequest) {
     return authService.register(userRequest);
+  }
+
+  @PostMapping("/login")
+  public LoginResponse login(@RequestBody LoginRequest loginRequest) {
+    return authService.login(loginRequest);
   }
 }
