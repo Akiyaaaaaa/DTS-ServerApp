@@ -3,7 +3,9 @@ package id.co.metrodata.serverapp.configs;
 import id.co.metrodata.serverapp.services.AppUserDetailService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private AppUserDetailService appUserDetailService;
@@ -32,10 +35,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
       .csrf()
       .disable()
       .authorizeRequests()
-      .antMatchers("/region/**")
-      .hasRole("USER")
-      .antMatchers("/country/**")
-      .hasRole("ADMIN")
+      .antMatchers(HttpMethod.POST, "/register")
+      .permitAll()
       .anyRequest()
       .authenticated()
       .and()
